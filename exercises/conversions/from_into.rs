@@ -35,10 +35,25 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of Person
 // Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
+// I AM  DONE
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        let sq:Vec<&str>=s.split(",").collect();
+        if(sq.len()!=2){
+            return Person::default();
+        }
+        let ageV=sq[1].parse();
+        if let Err(e)=ageV{
+            return Person::default();
+        }
+        if sq[0].to_string().len()==0{
+            return Person::default();
+        }
+        Person{
+            name:sq[0].to_string(),
+            age:ageV.unwrap()
+        }
     }
 }
 
